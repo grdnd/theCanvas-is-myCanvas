@@ -10,20 +10,19 @@
     <script src="./assets/js/three.js"></script>
 
     <script>
-
-      // --- Our Javascript will go here ---
+      ////////// THREE.JS LOGIC //////////
       
-      // Create a Scene
+      ////////// CREATE A SCENE //////////
       const scene = new THREE.Scene();
 
-      // Set Up Camera
+      ////////// SET UP CAMERA //////////
       //   - We are using .PerspectiveCamera( Field of View, Aspect Ratio, Near, Far )
       //       = FOV is the extent of the scene that is seen
       //       = Aspect Ratio is usually set to be width divided by height
       //       = Near/Far determine the depth and closeness of our scene
       const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-      // Creates a Render Instance
+      ////////// CREATE RENDER INSTANCE //////////
       const renderer = new THREE.WebGLRenderer();
 
       // We can also set the size of our renderer with .setSize()
@@ -32,23 +31,34 @@
       renderer.setSize( window.innerWidth, window.innerHeight );
       document.body.appendChild( renderer.domElement );
 
-      // Geometry
+      ////////// GEOMETRY //////////
+      // Here we are building a cube
+      //    - First, we can determine the dimensions of a cube in three.js simply by using 'THREE.BoxGeometry( l, w, h )' 
+      //    - This cube has the dimensions of 1x1x1
       const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+      // Create MeshBasicMaterial
+      const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+
+
       const cube = new THREE.Mesh( geometry, material );
+
       scene.add( cube );
 
       camera.position.z = 5;
 
+      ////////// ANIMATION //////////
+      // Create a function called animate
+      //    - We call on the function requestAnimationFrame and pass through our function as the parameter
       function animate() {
       requestAnimationFrame( animate );
-
+      //    - using .rotation we rotate our cube along the x and y axis
       cube.rotation.x += 0.01;
       cube.rotation.y += 0.01;
-
+      //    - we call on renderer to render our scene and camera
       renderer.render( scene, camera );
     }
-
+    //    - call our animation function
     animate();
     </script>
   </body>
